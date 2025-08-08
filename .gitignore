@@ -1,0 +1,24 @@
+# Virtuelle Umgebung
+venv/
+.venv/
+
+# PyCharm/IDE Konfigurationsdateien
+.idea/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Große Modelldateien und temporäre Ordner
+mein-fertiges-modell/
+mein-verbessertes-modell/
+mein-finales-modell-merged/
+mein-finales-modell-quantized/
+mein-finales-modell.gguf
+offload/
+
+# llama.cpp Repository
+llama.cpp/
+
+# macOS spezifische Dateien
+.DS_Store
