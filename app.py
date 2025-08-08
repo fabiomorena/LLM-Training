@@ -45,7 +45,7 @@ def generiere_antwort(message, history):
 # Diese Komponente kümmert sich automatisch um die Darstellung der Chathistorie.
 iface = gr.ChatInterface(
     fn=generiere_antwort,
-    title="Mein eigenes KI-Modell 🤖 (Phi-3 Mini GGUF-Optimiert)",
+    title="FabPhi Φ (Phi-3 Mini GGUF-Optimiert)",
     chatbot=gr.Chatbot(height=500),  # Gibt der Chatbox eine feste Höhe
     textbox=gr.Textbox(placeholder="Stelle hier deine Frage zum Thema KI-Transformer...", container=False, scale=7),
     theme="gradio/dracula_soft",  # Ein modernes, dunkles Design
