@@ -1,92 +1,91 @@
-# Fine-Tuning & RAG-System auf einem MacBook Air
+# Fine-Tuning & RAG System on a MacBook Air
 
-Dieses Projekt dokumentiert den gesamten Prozess des Fine-Tunings, der Optimierung und der Erweiterung eines modernen Sprachmodells (`microsoft/phi-3-mini-instruct`) zu einem RAG-System auf einem Apple MacBook Air. Es dient als praxisnahes Beispiel für die Herausforderungen und Lösungen bei der Arbeit mit großen Sprachmodellen auf Consumer-Hardware.
+This project documents the entire process of fine-tuning, optimizing, and extending a modern language model (`microsoft/phi-3-mini-instruct`) into a RAG system on an Apple MacBook Air. It serves as a practical example of the challenges and solutions when working with large language models on consumer hardware.
 
 ---
 ## ✨ Features
 
-* **End-to-End-Workflow:** Von der Idee über das Training bis zur fertigen, interaktiven Anwendung.
-* **Modernes KI-Modell:** Fine-Tuning des leistungsstarken `phi-3-mini-instruct` (3.8 Mrd. Parameter).
-* **Effizientes Training:** Einsatz von **PEFT/LoRA** zur Minimierung des Speicher- und Rechenbedarfs.
-* **Inferenz-Optimierung:** Konvertierung des trainierten Modells in das hochperformante **GGUF-Format** mit 8-Bit-Quantisierung.
-* **Retrieval-Augmented Generation (RAG):** Das Modell kann Fragen basierend auf Inhalten aus benutzerdefinierten PDF-Dokumenten beantworten.
-* **Konversationelles Gedächtnis:** Die RAG-Anwendung nutzt "Query Transformation", um Folgefragen im Gesprächskontext zu verstehen.
-* **Interaktive Web-App:** Eine mit **Gradio** erstellte Benutzeroberfläche für die einfache Interaktion mit dem finalen Modell.
+* **End-to-end workflow:** From idea to training to the finished interactive application.
+* **Modern AI model:** Fine-tuning the powerful `phi-3-mini-instruct` (3.8B parameters).
+* **Efficient training:** Use of **PEFT/LoRA** to minimize memory and compute requirements.
+* **Inference optimization:** Conversion of the trained model into the high-performance **GGUF format** with 8-bit quantization.
+* **Retrieval-Augmented Generation (RAG):** The model can answer questions based on content from custom PDF documents.
+* **Conversational memory:** The RAG application uses "Query Transformation" to understand follow-up questions in conversational context.
+* **Interactive web app:** A **Gradio**-built interface for easy interaction with the final model.
 
 ---
-## 🛠️ Verwendete Technologien
+## 🛠️ Technologies Used
 
 * **Python 3.11**
-* **PyTorch** (mit MPS-Beschleunigung für Apple Silicon)
-* **Hugging Face Libraries:**
+* **PyTorch** (with MPS acceleration for Apple Silicon)
+* **Hugging Face libraries:**
     * `transformers`
-    * `peft` (für LoRA)
+    * `peft` (for LoRA)
     * `datasets`
     * `accelerate`
-* **RAG & Inferenz:**
-    * `llama-cpp-python` (für GGUF-Modelle)
-    * `chromadb` (Vektor-Datenbank)
-    * `sentence-transformers` (für Embeddings)
-    * `pypdf` (zum Lesen von PDFs)
-* **UI & Entwicklung:**
-    * `gradio` (für die Web-App)
+* **RAG & inference:**
+    * `llama-cpp-python` (for GGUF models)
+    * `chromadb` (vector database)
+    * `sentence-transformers` (for embeddings)
+    * `pypdf` (for reading PDFs)
+* **UI & development:**
+    * `gradio` (for the web app)
     * Git & GitHub
-    * PyCharm auf macOS
+    * PyCharm on macOS
 
 ---
 ## 🚀 Setup & Installation
 
-1.  **Repository klonen:**
+1.  **Clone repository:**
     ```bash
-    git clone [https://github.com/fabiomorena/LLM-Training.git](https://github.com/fabiomorena/LLM-Training.git)
+    git clone https://github.com/fabiomorena/LLM-Training.git
     cd LLM-Training
     ```
 
-2.  **Virtuelle Umgebung erstellen und aktivieren:**
+2.  **Create and activate virtual environment:**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3.  **Abhängigkeiten installieren:**
+3.  **Install dependencies:**
     ```bash
     pip install torch transformers datasets peft accelerate gradio llama-cpp-python sentencepiece chromadb pypdf
     ```
 
 ---
-## 🏃‍♀️ Anwendung
+## 🏃‍♀️ Usage
 
-Das Herzstück des Projekts ist die finale RAG-Anwendung.
+The core of the project is the final RAG application.
 
-### ### Die RAG-App starten
+### Start the RAG app
 
-1.  **Dokumente bereitstellen:** Erstelle einen Ordner namens `rag_dokumente` und lege die PDF-Dateien hinein, mit denen du chatten möchtest.
-2.  **Wissensdatenbank erstellen:** Führe das Skript aus, um die Dokumente zu verarbeiten und in der Vektor-Datenbank zu speichern.
+1.  **Provide documents:** Create a folder named `rag_dokumente` and place the PDF files you want to chat with inside.
+2.  **Build knowledge base:** Run the script to process the documents and store them in the vector database.
     ```bash
     python create_database.py
     ```
-3.  **App starten:** Starte die Gradio-Anwendung.
+3.  **Start app:** Launch the Gradio application.
     ```bash
     python app.py
     ```
-4.  Öffne anschließend die lokale URL (z.B. `http://127.0.0.1:7860`) in deinem Webbrowser und stelle Fragen zu deinen Dokumenten.
+4.  Open the local URL (e.g., `http://127.0.0.1:7860`) in your web browser and ask questions about your documents.
 
 ---
-## 🧗‍♂️ Die Projekt-Reise: Herausforderungen & Lösungen
+## 🧗‍♂️ Project Journey: Challenges & Solutions
 
-Dieses Projekt war eine intensive Lernreise. Die größten Hürden und ihre Lösungen waren:
-* **Abhängigkeitskonflikte:** Moderne KI-Bibliotheken entwickeln sich schnell. Ein zentraler Teil des Projekts war das Debuggen von Inkompatibilitäten zwischen `transformers`, `peft` und dem `phi-3`-Modellcode. Die Lösung war die Installation eines "goldenen Trios" von zueinander passenden Bibliotheksversionen.
-* **Hardware-Grenzen:** Das Training eines 3.8-Milliarden-Parameter-Modells sprengte die RAM-Grenzen des MacBook Air. Dies wurde durch clevere Software-Tricks wie **Gradient Checkpointing** und einen speichersparenden **Optimizer (`adafactor`)** umgangen.
-* **Optimierungs-Toolchain:** Die Quantisierung mit `bitsandbytes` scheiterte an der Hardware-Inkompatibilität. Der Wechsel zur `llama.cpp/GGUF`-Toolchain war die Lösung, um eine hochperformante, Mac-freundliche Version des Modells zu erstellen. Dieser Wechsel brachte eigene Herausforderungen mit sich (veraltete Skripte, fehlende Dateien), die schrittweise gelöst wurden.
-* **Konversationelles Gedächtnis für RAG:** Das RAG-System konnte anfangs keine Folgefragen verstehen. Dies wurde durch die Implementierung einer **"Query Transformation"** gelöst, bei der das LLM die Nutzeranfrage basierend auf dem Gesprächsverlauf selbst präzisiert.
-
----
-## 📄 Lizenz
-
-Dieses Projekt steht unter der MIT-Lizenz..
+* **Dependency conflicts:** Debugged incompatibilities between `transformers`, `peft`, and the `phi-3` model code by installing a compatible set of versions.
+* **Hardware limits:** Overcame RAM constraints using **gradient checkpointing** and a memory-efficient **optimizer (`adafactor`)**.
+* **Optimization toolchain:** Switched from `bitsandbytes` to the `llama.cpp/GGUF` toolchain for Mac-friendly, high-performance inference.
+* **Conversational memory for RAG:** Implemented **"Query Transformation"** to make the model understand follow-up questions.
 
 ---
-## 👤 Autor
+## 📄 License
+
+MIT License.
+
+---
+## 👤 Author
 
 * **Fabio Morena**
 * GitHub: [github.com/fabiomorena](https://github.com/fabiomorena)
